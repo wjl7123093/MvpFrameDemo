@@ -16,9 +16,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
-//    compileSdkVersion 26
-//    buildToolsVersion "26.0.1"
-
     defaultConfig {
         // 包名
         applicationId "com.fred_w.demo.mvpframedemo"
@@ -42,6 +39,14 @@ android {
         jackOptions {
             enabled true
         }
+
+        // alibaba ARouter 配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+
 //        ndk {
 //            // 设置支持的SO库架构
 //            abiFilters "armeabi", "armeabi-v7a"
@@ -203,28 +208,31 @@ dependencies {
     compile rootProject.ext.dependencies["sqlcipher"]
     // Views
     //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    //    compile rootProject.ext.dependencies["MaterialDesign"]
     // Test
     testCompile rootProject.ext.dependencies["junit"]
     debugCompile rootProject.ext.dependencies["canary-debug"]
     releaseCompile rootProject.ext.dependencies["canary-release"]
     testCompile rootProject.ext.dependencies["canary-release"]
-    // 引入框架通用模块
+
+    compile rootProject.ext.dependencies["androideventbus"]//eventbus
+    compile rootProject.ext.dependencies["arouter"]// alibaba arouter 路由框架
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+
+    // 引入框架通用模块(使用Rxjava2)
     //    compile 'android.frame:MVPFrames:1.4.2'
     compile 'me.jessyan:arms:2.2.3'
-    //使用Rxjava2
-    //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    //        exclude group: 'com.android.support', module: 'support-annotations'
-    //    })
-    //    compile 'com.android.support:appcompat-v7:26.+'
-    //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    //    testCompile 'junit:junit:4.12'
+
+    // MD UI
     compile 'net.qiujuer.genius:ui:2.0.1'
     compile 'net.qiujuer.genius:res:2.0.1'
     compile 'net.qiujuer.genius:graphics:2.0.1'
     compile 'net.qiujuer.genius:kit-cmd:2.0.1'
     compile 'net.qiujuer.genius:kit-reflect:2.0.1'
     compile 'net.qiujuer.genius:kit-handler:2.0.1'
+
+    // 底部导航栏
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.3.1'
+
     compile files('libs/rsa.jar')
     compile files('libs/BASE64.jar')
     compile files('libs/javabase64-1.3.1.jar')
