@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">MvpFrameDemo</string>
     <string name="title_activity_login2">Sign in</string>
+    <string name="title_activity_login">登录</string>
 
     <!-- Strings related to login -->
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
+
+    <!-- main tab -->
+    <string name="tab_one">首页</string>
+    <string name="tab_two">分类</string>
+    <string name="tab_three">发现</string>
+    <string name="tab_four">我的</string>
 </resources>
