@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.fred_w.demo.mvpframedemo.BuildConfig;
 import com.fred_w.demo.mvpframedemo.R;
 import com.fred_w.demo.mvpframedemo.mvp.model.api.Api;
@@ -35,6 +36,7 @@ import timber.log.Timber;
  * @version 1.0.0
  *
  * @crdate 2017-12-19
+ * @update 2017-12-25
  */
 public class GlobalConfiguration implements ConfigModule {
 
@@ -73,28 +75,21 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onCreate(Application application) {
-                lifecycles.add(new AppLifecycles() {
 
-                    @Override
-                    public void attachBaseContext(Context base) {
+                if (BuildConfig.LOG_DEBUG) {//Timber日志打印
+                    Timber.plant(new Timber.DebugTree());
+                }
+                //leakCanary内存泄露检查
+                ((App) application).getAppComponent().extras().put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
 
-                    }
+                //ARouter初始化
+                if (BuildConfig.LOG_DEBUG) {
+                    ARouter.openLog();     // 打印日志
+                    ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+                }
+                ARouter.init(application); // 尽可能早，推荐在Application中初始化
+//                GreenDaoHelper.initDatabase(application);
 
-                    @Override
-                    public void onCreate(Application application) {
-                        if (BuildConfig.LOG_DEBUG) {//Timber日志打印
-                            Timber.plant(new Timber.DebugTree());
-                        }
-                        if (BuildConfig.USE_CANARY) {//leakCanary内存泄露检查
-                            LeakCanary.install(application);
-                        }
-                    }
-
-                    @Override
-                    public void onTerminate(Application application) {
-
-                    }
-                });
 
             }
 
@@ -113,6 +108,10 @@ public class GlobalConfiguration implements ConfigModule {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Timber.w(activity + " - onActivityCreated");
+                /**
+                 * 在 onActivityCreated() 里调用 findViewById() 返回的永远为 null
+                 * 故将该段代码放至 onActivityStarted() 里
+                 */
                 //这里全局给Activity设置toolbar和title,你想象力有多丰富,这里就有多强大,以前放到BaseActivity的操作都可以放到这里
 //                if (activity.findViewById(R.id.toolbar) != null) {
 //                    if (activity instanceof AppCompatActivity) {
@@ -138,7 +137,26 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onActivityStarted(Activity activity) {
-
+                //这里全局给Activity设置toolbar和title,你想象力有多丰富,这里就有多强大,以前放到BaseActivity的操作都可以放到这里
+                if (activity.findViewById(R.id.toolbar) != null) {
+                    if (activity instanceof AppCompatActivity) {
+                        ((AppCompatActivity) activity).setSupportActionBar((Toolbar) activity.findViewById(R.id.toolbar));
+                        ((AppCompatActivity) activity).getSupportActionBar().setDisplayShowTitleEnabled(false);
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            activity.setActionBar((android.widget.Toolbar) activity.findViewById(R.id.toolbar));
+                            activity.getActionBar().setDisplayShowTitleEnabled(false);
+                        }
+                    }
+                }
+                if (activity.findViewById(R.id.toolbar_title) != null) {
+                    ((TextView) activity.findViewById(R.id.toolbar_title)).setText(activity.getTitle());
+                }
+                if (activity.findViewById(R.id.toolbar_back) != null) {
+                    activity.findViewById(R.id.toolbar_back).setOnClickListener(v -> {
+                        activity.onBackPressed();
+                    });
+                }
             }
 
             @Override
