@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -30,14 +33,22 @@ import butterknife.OnClick;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 /**
- * @desc 登录 界面
+ * LoginActivity 登录界面
  *
  * @author Fred_W
  * @version v1.0.0
  *
  * @crdate 2017-12-19
+ * @update 2017-12-25
  */
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
+
+    @BindView(R.id.toolbar)
+    public Toolbar mToolbar;
+    @BindView(R.id.toolbar_title)
+    public TextView mTvToolbarTitle;
+    @BindView(R.id.toolbar_back)
+    public RelativeLayout mBtnToolbarBack;
 
     @BindView(R.id.edtTxtAcc)
     public EditText mEdtTxtAcc;
@@ -65,7 +76,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void initData(Bundle savedInstanceState) {
-
+//        setSupportActionBar(mToolbar);
+        mBtnToolbarBack.setVisibility(View.GONE);
+        mTvToolbarTitle.setText("登录");
     }
 
     /**
