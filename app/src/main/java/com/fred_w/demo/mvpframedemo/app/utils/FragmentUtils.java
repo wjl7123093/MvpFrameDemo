@@ -30,7 +30,6 @@ public final class FragmentUtils {
 
     private FragmentUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
-
     }
 
     private static final int TYPE_ADD_FRAGMENT = 0x01;
