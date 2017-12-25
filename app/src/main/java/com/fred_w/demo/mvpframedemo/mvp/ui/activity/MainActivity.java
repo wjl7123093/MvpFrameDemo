@@ -211,8 +211,4 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         outState.putInt(ACTIVITY_FRAGMENT_REPLACE, mReplace);
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
 }
