@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -49,6 +50,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * @crdate 2017-12-19
  * @upadte 2017-12-25
  */
+@Route(path = "/test/main")
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View,
         BottomNavigationBar.OnTabSelectedListener {
 
