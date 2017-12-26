@@ -79,17 +79,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 //        setSupportActionBar(mToolbar);
         mBtnToolbarBack.setVisibility(View.GONE);
         mTvToolbarTitle.setText("登录");
-    }
 
-    /**
-     * 登录事件
-     * @param v
-     */
-    @OnClick(R.id.btnLogin)
-    public void onBtnLoginClick(View v) {
-        mPresenter.validateLogin(mEdtTxtAcc.getText().toString().trim(),
-                mEdtTxtPwd.getText().toString().trim());
-        DeviceUtils.hideSoftKeyboard(LoginActivity.this, v);
+        // 登录 lambda
+        mBtnLogin.setOnClickListener(v -> {
+            mPresenter.validateLogin(mEdtTxtAcc.getText().toString().trim(),
+                    mEdtTxtPwd.getText().toString().trim());
+            DeviceUtils.hideSoftKeyboard(LoginActivity.this, v);
+        });
     }
 
     @Override
@@ -113,13 +109,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         checkNotNull(intent);
 
         // 延迟跳转，为了给 SnackBar 预留显示时间
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 ArmsUtils.startActivity(intent);
                 killMyself();
             }
-        }, 2000);
+        }, 2000);*/
+
+        // lambda
+        new Handler().postDelayed(() -> {ArmsUtils.startActivity(intent); killMyself();}, 2000);
     }
 
     @Override
