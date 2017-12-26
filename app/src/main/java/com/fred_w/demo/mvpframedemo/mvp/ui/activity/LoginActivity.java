@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -119,6 +120,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         // lambda
         new Handler().postDelayed(() -> {ArmsUtils.startActivity(intent); killMyself();}, 2000);
+
+        // lambda + arouter
+//        new Handler().postDelayed(() -> {
+//            ARouter.getInstance().build("/test/main").navigation();
+//        }, 2000);
     }
 
     @Override
