@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         mBottomNavigationBar.setBarBackgroundColor(R.color.white);//set background color for navigation bar
         mBottomNavigationBar.setInActiveColor(R.color.grey_600);//unSelected icon color
-        mBottomNavigationBar.setActiveColor(R.color.light_blue_500); // selected icon color
+        mBottomNavigationBar.setActiveColor(R.color.colorPrimary); // selected icon color
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_home, R.string.tab_one).setBadgeItem(badgeItem))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_category, R.string.tab_two))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_discovery, R.string.tab_three))
