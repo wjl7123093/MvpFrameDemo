@@ -1,14 +1,12 @@
-package com.fred_w.demo.mvpframedemo.mvp.model.api.Service;
+package com.fred_w.demo.mvpframedemo.mvp.model.api.service;
 
 import com.fred_w.demo.mvpframedemo.mvp.model.entity.BaseJson;
 import com.fred_w.demo.mvpframedemo.mvp.model.entity.User;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 /**
  * 登录接口

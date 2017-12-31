@@ -1,4 +1,4 @@
-package com.fred_w.demo.mvpframedemo.mvp.model.api.Service;
+package com.fred_w.demo.mvpframedemo.mvp.model.api.service;
 
 import com.fred_w.demo.mvpframedemo.mvp.model.entity.User;
 
